@@ -1,8 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:login_one/homepage.dart';
 import 'package:login_one/loginPage.dart';
-
-import 'homepage.dart';
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({super.key});
@@ -14,15 +13,22 @@ class RegisterPage extends StatefulWidget {
 class _RegisterPageState extends State<RegisterPage> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
+  final _firstnameController = TextEditingController();
+  final _lastnameController = TextEditingController();
   bool rememberMe = false;
 
   void register() {
     String email = _emailController.text;
     String password = _passwordController.text;
-    if (email.isEmpty || password.isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text("Please enter email and password")),
-      );
+    String firstname = _firstnameController.text;
+    String lastname = _lastnameController.text;
+    if (email.isEmpty ||
+        password.isEmpty ||
+        lastname.isEmpty ||
+        firstname.isEmpty) {
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(const SnackBar(content: Text("Please enter all fields")));
       return;
     }
     Navigator.pushReplacement(
@@ -34,13 +40,13 @@ class _RegisterPageState extends State<RegisterPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 16),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Spacer(),
               Text(
                 'Signup Account !',
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
@@ -128,10 +134,12 @@ class _RegisterPageState extends State<RegisterPage> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text('Email'),
+                        Text('First Name'),
                         TextField(
-                          controller: _emailController,
-                          decoration: const InputDecoration(hintText: "Email"),
+                          controller: _firstnameController,
+                          decoration: const InputDecoration(
+                            hintText: "First Name",
+                          ),
                         ),
                       ],
                     ),
@@ -140,17 +148,19 @@ class _RegisterPageState extends State<RegisterPage> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text('Email'),
+                        Text('Last Name'),
                         TextField(
-                          controller: _emailController,
-                          decoration: const InputDecoration(hintText: "Email"),
+                          controller: _lastnameController,
+                          decoration: const InputDecoration(
+                            hintText: "Last Name",
+                          ),
                         ),
                       ],
                     ),
                   ),
                 ],
               ),
-
+              const SizedBox(height: 20),
               Text('Email'),
               const SizedBox(height: 10),
               TextField(

@@ -35,100 +35,8 @@ class _HomePageState extends State<HomePage> {
         child: Column(
           spacing: 10,
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                const Text(
-                  "Lead Detail",
-                  style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black,
-                  ),
-                ),
-
-                ElevatedButton(
-                  onPressed: () {},
-                  child: const Text(
-                    "View",
-                    style: TextStyle(fontSize: 16, color: Colors.white),
-                  ),
-                ),
-              ],
-            ),
-            Container(
-              padding: EdgeInsets.all(8),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(15),
-                color: Colors.grey.shade200,
-              ),
-              child: Column(
-                children: [
-                  SizedBox(height: 10),
-
-                  Row(
-                    spacing: 10,
-                    children: [
-                      const SizedBox(width: 10),
-                      Icon(Icons.email, color: Colors.black),
-                      Text("arjun vt"),
-                      const SizedBox(width: 10),
-                      Icon(Icons.phone, color: Colors.black),
-                      Text("1234567890"),
-                    ],
-                  ),
-                  SizedBox(height: 20),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          shape: const CircleBorder(),
-                          padding: const EdgeInsets.all(12),
-                          backgroundColor:
-                              Colors.grey.shade200, // button background
-                          elevation: 2,
-                        ),
-                        onPressed: () {},
-                        child: const Icon(Icons.email, color: Colors.black),
-                      ),
-
-                      ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          shape: const CircleBorder(),
-                          padding: const EdgeInsets.all(12),
-                          backgroundColor: Colors.grey.shade200,
-                          elevation: 2,
-                        ),
-                        onPressed: () {},
-                        child: const Icon(Icons.phone, color: Colors.black),
-                      ),
-                      ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          shape: const CircleBorder(),
-                          padding: const EdgeInsets.all(12),
-                          backgroundColor: Colors.grey.shade200,
-                          elevation: 2,
-                        ),
-                        onPressed: () {},
-                        child: const Icon(Icons.message, color: Colors.black),
-                      ),
-                      ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          shape: const CircleBorder(),
-                          padding: const EdgeInsets.all(12),
-                          backgroundColor: Colors.grey.shade200,
-                          elevation: 2,
-                        ),
-                        onPressed: () {},
-                        child: const Icon(Icons.more, color: Colors.black),
-                      ),
-                    ],
-                  ),
-                  SizedBox(height: 10),
-                ],
-              ),
-            ),
+            One(),
+            Two(widget: widget),
             SizedBox(height: 10),
             Row(
               spacing: 10,
@@ -245,6 +153,135 @@ class _HomePageState extends State<HomePage> {
           ],
         ),
       ),
+    );
+  }
+}
+
+class Two extends StatelessWidget {
+  const Two({super.key, required this.widget});
+
+  final HomePage widget;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.all(8),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(15),
+        color: Colors.grey.shade200,
+      ),
+      child: Column(
+        children: [
+          SizedBox(height: 10),
+          Container(
+            padding: EdgeInsets.all(8),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(15),
+              color: Colors.white,
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                CircleAvatar(
+                  backgroundColor: Colors.grey.shade100,
+                  child: Icon(Icons.person),
+                ),
+                SizedBox(width: 10),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      widget.email,
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                    Text(
+                      "1234567890",
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+          SizedBox(height: 10),
+
+          Row(
+            spacing: 10,
+            children: [
+              Icon(Icons.email, color: Colors.black),
+              Text("Arjun vt", style: TextStyle(fontWeight: FontWeight.bold)),
+              const SizedBox(width: 10),
+              Icon(Icons.phone, color: Colors.black),
+              Text("1234567890", style: TextStyle(fontWeight: FontWeight.bold)),
+            ],
+          ),
+          SizedBox(height: 20),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            spacing: 10,
+            children: [
+              CircleAvatar(
+                backgroundColor: Colors.white,
+                child: IconButton(
+                  onPressed: () {},
+                  icon: Icon(Icons.message_outlined, color: Colors.black),
+                ),
+              ),
+              CircleAvatar(
+                backgroundColor: Colors.white,
+                child: IconButton(
+                  onPressed: () {},
+                  icon: Icon(Icons.email, color: Colors.black),
+                ),
+              ),
+              CircleAvatar(
+                backgroundColor: Colors.white,
+                child: IconButton(
+                  onPressed: () {},
+                  icon: Icon(Icons.phone_android, color: Colors.black),
+                ),
+              ),
+              CircleAvatar(
+                backgroundColor: Colors.white,
+                child: IconButton(
+                  onPressed: () {},
+                  icon: Icon(Icons.more, color: Colors.black),
+                ),
+              ),
+            ],
+          ),
+          SizedBox(height: 10),
+        ],
+      ),
+    );
+  }
+}
+
+class One extends StatelessWidget {
+  const One({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        const Text(
+          "Lead Detail",
+          style: TextStyle(
+            fontSize: 18,
+            fontWeight: FontWeight.bold,
+            color: Colors.black,
+          ),
+        ),
+
+        ElevatedButton(
+          onPressed: () {},
+          child: const Text(
+            "View",
+            style: TextStyle(fontSize: 16, color: Colors.white),
+          ),
+        ),
+      ],
     );
   }
 }

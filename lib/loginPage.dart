@@ -15,6 +15,13 @@ class _LoginPageState extends State<LoginPage> {
   final _passwordController = TextEditingController();
   bool rememberMe = false;
 
+  @override
+  void initState() {
+    _emailController.text = "arjunvt004@gmail.com";
+    _passwordController.text = "123456";
+    super.initState();
+  }
+
   void login() {
     String email = _emailController.text;
     String password = _passwordController.text;

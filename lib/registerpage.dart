@@ -1,21 +1,22 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:login_one/registerpage.dart';
+import 'package:login_one/loginPage.dart';
 
 import 'homepage.dart';
 
-class LoginPage extends StatefulWidget {
-  const LoginPage({super.key});
+class RegisterPage extends StatefulWidget {
+  const RegisterPage({super.key});
+
   @override
-  State<LoginPage> createState() => _LoginPageState();
+  State<RegisterPage> createState() => _RegisterPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _RegisterPageState extends State<RegisterPage> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   bool rememberMe = false;
 
-  void login() {
+  void register() {
     String email = _emailController.text;
     String password = _passwordController.text;
     if (email.isEmpty || password.isEmpty) {
@@ -41,12 +42,12 @@ class _LoginPageState extends State<LoginPage> {
             children: [
               Spacer(),
               Text(
-                'Welcome Back !',
+                'Signup Account !',
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
               ),
               const SizedBox(height: 20),
               Text(
-                'Enter Your Login Information',
+                'Enter Your Personal Data to Create Account',
                 style: TextStyle(fontSize: 15, fontWeight: FontWeight.w500),
               ),
               const SizedBox(height: 20),
@@ -108,6 +109,7 @@ class _LoginPageState extends State<LoginPage> {
                 ],
               ),
               const SizedBox(height: 20),
+
               Row(
                 children: [
                   Expanded(child: Divider(color: Colors.black, thickness: 0.2)),
@@ -118,6 +120,37 @@ class _LoginPageState extends State<LoginPage> {
                 ],
               ),
               const SizedBox(height: 20),
+
+              Row(
+                spacing: 15,
+                children: [
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text('Email'),
+                        TextField(
+                          controller: _emailController,
+                          decoration: const InputDecoration(hintText: "Email"),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text('Email'),
+                        TextField(
+                          controller: _emailController,
+                          decoration: const InputDecoration(hintText: "Email"),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+
               Text('Email'),
               const SizedBox(height: 10),
               TextField(
@@ -133,45 +166,19 @@ class _LoginPageState extends State<LoginPage> {
               ),
               const SizedBox(height: 20),
 
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Checkbox(
-                        value: rememberMe,
-                        onChanged: (value) {
-                          setState(() {
-                            rememberMe = value!;
-                          });
-                        },
-                      ),
-                      Text("Remember Me", style: TextStyle(fontSize: 14)),
-                    ],
-                  ),
-                  TextButton(
-                    onPressed: () {},
-                    child: Text(
-                      "Forgot Password ?",
-                      style: TextStyle(color: Colors.orange),
-                    ),
-                  ),
-                ],
-              ),
               const SizedBox(height: 20),
               Row(
                 children: [
                   Expanded(
                     child: ElevatedButton(
-                      onPressed: login,
+                      onPressed: register,
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.orange,
                         foregroundColor: Colors.white,
                         disabledBackgroundColor: Colors.grey,
                         disabledForegroundColor: Colors.white,
                       ),
-                      child: Text("Login"),
+                      child: Text("Sign Up"),
                     ),
                   ),
                 ],
@@ -183,7 +190,7 @@ class _LoginPageState extends State<LoginPage> {
                 children: [
                   Spacer(),
                   Text(
-                    "Don't Have an account",
+                    "Already Have Account",
                     style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
                   ),
 
@@ -192,7 +199,7 @@ class _LoginPageState extends State<LoginPage> {
                       Navigator.push(
                         context,
                         CupertinoPageRoute(
-                          builder: (context) => const RegisterPage(),
+                          builder: (context) => const LoginPage(),
                         ),
                       );
                     },

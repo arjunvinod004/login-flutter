@@ -2,6 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:login_one/registerpage.dart';
 
+import 'Login_model/req/Login_req_model.dart';
+import 'Login_model/res/Login_res_model.dart';
+import 'auth_services.dart';
 import 'homepage.dart';
 
 class LoginPage extends StatefulWidget {
@@ -17,29 +20,83 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   void initState() {
-    _emailController.text = "arjunvt004@gmail.com";
-    _passwordController.text = "123456";
+    _emailController.text = "";
+    _passwordController.text = "";
     super.initState();
   }
 
-  void login() {
-    String email = _emailController.text;
-    String password = _passwordController.text;
+  // void login() {
+  //   String email = _emailController.text;
+  //   String password = _passwordController.text;
+  //   if (email.isEmpty || password.isEmpty) {
+  //     ScaffoldMessenger.of(context).showSnackBar(
+  //       const SnackBar(content: Text("Please enter email and password")),
+  //     );
+  //     return;
+  //   }
+  //   Navigator.pushReplacement(
+  //     context,
+  //     CupertinoPageRoute(builder: (context) => HomePage(email: email)),
+  //   );
+  // }
+
+  Future<void> login() async {
+
+    String email = _emailController.text.trim();
+    String password = _passwordController.text.trim();
+
     if (email.isEmpty || password.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text("Please enter email and password")),
       );
       return;
     }
-    Navigator.pushReplacement(
-      context,
-      CupertinoPageRoute(builder: (context) => HomePage(email: email)),
-    );
+
+    try {
+      // Optional: Show loading indicator
+      showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (context) => const Center(child: CircularProgressIndicator()),
+      );
+
+      LoginReqModel loginReqModel = LoginReqModel(
+        userName: email,
+        pwd: password,
+      );
+
+      final LoginResModel user = await AuthServices().getLogin(loginReqModel);
+
+      Navigator.pop(context); // close loading indicator
+
+      if (user.isSuccess == true)
+      {
+        // ✅ Navigate only if login success
+        Navigator.pushReplacement(
+          context,
+          CupertinoPageRoute(builder: (context) => HomePage(email: email)),
+        );
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text(user.errorMessage ?? "Login failed")),
+        );
+      }
+    } catch (e) {
+      Navigator.pop(context); // close loading if error
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text("Error: $e")),
+      );
+    }
+    finally{
+      FocusScope.of(context).unfocus();
+
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+
       resizeToAvoidBottomInset: false,
       body: SafeArea(
         child: Padding(
@@ -172,6 +229,7 @@ class _LoginPageState extends State<LoginPage> {
                   Expanded(
                     child: ElevatedButton(
                       onPressed: login,
+
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.orange,
                         foregroundColor: Colors.white,
